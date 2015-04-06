@@ -15,7 +15,7 @@ public class EmbeddedResourceHandlerServlet extends HttpServlet
     {
         String pathInfo = "/www" + request.getPathInfo();
         
-        InputStream resourceAsStream = EmbeddedResourceHandlerServlet.class.getResourceAsStream(pathInfo);
+        InputStream resourceAsStream = getResourceFromPathInfo(pathInfo);
         if (resourceAsStream == null)
         {
             response.sendError(404, "Not found: " + pathInfo);
@@ -33,5 +33,30 @@ public class EmbeddedResourceHandlerServlet extends HttpServlet
             }
             resourceAsStream.close();
         }
+    }
+    
+    /**
+     * 
+     * Handles index pages
+     * 
+     * @param pathInfo
+     * @return 
+     */
+    protected InputStream getResourceFromPathInfo(String pathInfo)
+    {
+        InputStream stream = null;
+        if ( pathInfo.endsWith("/"))
+        {
+            stream = EmbeddedResourceHandlerServlet.class.getResourceAsStream(pathInfo + "index.html");
+            if ( stream == null)
+            {
+                stream = EmbeddedResourceHandlerServlet.class.getResourceAsStream(pathInfo + "index.htm");
+            }
+        }
+        else
+        {
+            stream = EmbeddedResourceHandlerServlet.class.getResourceAsStream(pathInfo);
+        }
+        return stream;
     }
 }
