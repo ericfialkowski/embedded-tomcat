@@ -2,23 +2,14 @@ package com.ericski.embedded;
 
 import com.ericski.embedded.servlets.EmbeddedResourceHandlerServlet;
 import java.io.File;
-import java.net.MalformedURLException;
-import javax.servlet.ServletException;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 
-public class Main
+public class TomcatMain
 {
     public static void main(String[] args) throws Exception, LifecycleException
-    {
-        new Main().start();
-    }
-
-    public void start() throws ServletException, LifecycleException,
-                               MalformedURLException
-    {
-
+    {     
         Tomcat tomcat = new Tomcat();
         
         int port = Integer.getInteger("PORT", 8181);                        
