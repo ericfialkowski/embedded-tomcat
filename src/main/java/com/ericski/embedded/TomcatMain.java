@@ -1,10 +1,11 @@
 package com.ericski.embedded;
 
 import com.ericski.embedded.servlets.EmbeddedResourceHandlerServlet;
-import java.io.File;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
+
+import java.io.File;
 
 public class TomcatMain
 {
@@ -12,7 +13,7 @@ public class TomcatMain
     {     
         Tomcat tomcat = new Tomcat();
         
-        int port = Integer.getInteger("PORT", 8181);                        
+        int port = Integer.getInteger("PORT", 8811);
         tomcat.setPort(port);
 
         // Root context
@@ -21,11 +22,11 @@ public class TomcatMain
 
         // Jersey servlet
         Tomcat.addServlet(context, "jersey-container-servlet", ResourceLoader.resourceConfig());
-        context.addServletMapping("/rest/*", "jersey-container-servlet");
+        context.addServletMappingDecoded("/rest/*", "jersey-container-servlet");
 
         // servlet for serving embedded static resources
         Tomcat.addServlet(context, "statics", new EmbeddedResourceHandlerServlet());
-        context.addServletMapping("/*", "statics");
+        context.addServletMappingDecoded("/*", "statics");
         
         // start & wait
         tomcat.start();

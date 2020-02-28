@@ -12,3 +12,5 @@
 hs_err_pid*
 /target/
 /dependency-reduced-pom.xml
+/embedded-tomcat.iml
+/.idea
